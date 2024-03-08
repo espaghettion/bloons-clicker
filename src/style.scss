@@ -1,0 +1,170 @@
+@import "mixins.scss";
+
+html, body{
+    @include flex-row;
+    height: 100%;
+    min-height: 100vh;
+    width: 100%;
+    color: rgb(255, 160, 7);
+}
+
+#app{
+    @include flex-row;
+    width: 100%;
+    height: 100%;
+}
+
+main{
+    @include flex-row;
+    height: 100%;
+    width: 100%;
+}
+
+#clicker{
+    @include flex-column;
+    width: 40%;
+    height: 100%;
+    gap: 150px;
+    background-image: url("./assets/background.png");
+    background-size: cover;
+}
+
+.text{
+    font-family: 'Luckiest Guy', sans-serif;
+    font-size: 4em;
+    padding: 20px;
+    text-align: center;
+}
+
+.pps{
+    font-family: 'Luckiest Guy', sans-serif;
+    font-size: 2em;
+    text-align: center;
+}
+
+#mogged-button{
+    background-color: transparent;
+    border: none;
+    transition: 0.3s ease all;
+
+    img{
+        width: 100px;
+        cursor: pointer;
+    }
+
+    &:hover{
+        scale: 1.1;
+    }
+}
+
+#boosts{
+    @include flex-row;
+    gap: 10px;
+}
+
+.boost{
+    width: 75px;
+}
+
+.shop-area{
+    @include flex-column;
+    width: 30%;
+    height: 100%;
+    background-color: rgb(152, 85, 23);
+    border-left: ridge 10px rgb(101, 60, 22);
+    border-right: ridge 10px rgb(101, 60, 22);
+    font-size: 1.4em;
+}
+
+.shop-name{
+    @include flex-row;
+    width: 100%;
+    height: 20%;
+    border-bottom: 10px ridge rgb(101, 60, 22);
+}
+
+.shop{
+    width: 100%;
+    height: 80%;
+    overflow-y: auto;
+}
+
+.upgrades{
+    @include flex-row;
+    width: 100%;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-bottom: 10px ridge rgb(101, 60, 22);
+    font-family: 'Luckiest Guy', sans-serif;
+    gap: 40px;
+    background: radial-gradient(circle, rgba(175,119,5,1) 0%, rgba(82,55,6,1) 100%);
+    background-image: url(./assets/wood-texture.jpg);
+    background-size: 50%;
+
+    &:nth-child(2n){
+        background-position: 20px;
+    }
+
+    img{
+        width: 50px;
+    }
+
+    article{
+        @include flex-column;
+        gap: 10px;
+        font-size: 0.85em;
+
+        .cost{
+            @include flex-row;
+            gap: 10px;
+        }
+
+        &:nth-child(2n - 1){
+            width: 23%;
+        }
+
+        &:nth-child(2n){
+            width: 54%;
+        }
+
+        &:last-child img{
+            width: 20px;
+        }
+    }
+
+    button{
+        font-family: 'Luckiest Guy', sans-serif;
+        padding-left: 10px;
+        padding-right: 10px;
+        border-radius: 10px;
+        background-color: rgb(235, 145, 0);
+        border: 7px groove rgb(57, 41, 4);
+        color: rgb(111, 72, 8);
+        font-size: 1em;
+        transition: 0.3s ease all;
+
+        &:hover{
+            scale: 1.05;
+            cursor: pointer;
+        }
+    }
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgb(239, 217, 130);
+    border-left: 3px solid rgb(80,60,8);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgb(122, 90, 8);
+    border: 3px solid rgb(80,60,8);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(109, 80, 8);
+}
