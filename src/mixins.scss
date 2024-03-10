@@ -11,3 +11,43 @@
     align-items: center;
     justify-content: center;
 }
+
+@mixin button{
+    font-family: 'Luckiest Guy', sans-serif;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 10px;
+    background-color: rgb(235, 145, 0);
+    border: 7px groove rgb(57, 41, 4);
+    color: rgb(111, 72, 8);
+    font-size: 1em;
+    transition: 0.3s ease all;
+}
+
+@mixin responsive( $breakpoint ) {
+    @if $breakpoint == smartphone-portrait {
+        @media only screen and ( max-width: 575.98px ) {
+            @content;
+        }
+    }
+    @if $breakpoint == smartphone-landscape {
+        @media only screen and ( min-width: 575.99px ) and ( max-width: 767.99px ) {
+            @content;
+        }
+    }
+    @if $breakpoint == tablet {
+        @media only screen and ( min-width: 767.99px ) and ( max-width: 1199.97px ) {
+            @content;
+        }
+    }
+    @if $breakpoint == laptop {
+        @media only screen and ( min-width: 1199.98px  ) and ( max-width: 1399.98px ) {
+            @content;
+        }
+    }
+    @if $breakpoint == desktop {
+        @media only screen and ( min-width: 1399.99px ) {
+            @content;
+        }
+    }
+}
