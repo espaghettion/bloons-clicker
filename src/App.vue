@@ -1,5 +1,5 @@
 <script setup>
-    import { onMounted } from 'vue';
+    import { ref, onMounted } from 'vue';
     import Clicker from './components/Clicker.vue'
     import Monkeys from './components/Monkeys.vue'
     import Skins from './components/Skins.vue'
@@ -7,77 +7,84 @@
 
     const counter = useCounterStore();
 
+    const skinShopActive = ref(false);
+    const monkeyShopActive = ref(false);
+
     onMounted(() => {
-        // je to somehow ještě víc rozbité, než předtím, ale je marné ronit slzy nad malou komplikací, spravím ve 3. výstupu 🚑
-            const leftButton = document.querySelector("#slide-button-left");
-            const rightButton = document.querySelector("#slide-button-right");
-            const skinShop = document.querySelector(".skins");
-            const monkeyShop = document.querySelector(".monkeys");
-            let isHidden = true;
-
-            window.addEventListener("resize", function(){
-                if(innerWidth > 768){
-                    skinShop.style.display = "flex";
-                    monkeyShop.style.display = "flex";
-                }
-                else{
-                    skinShop.style.display = "none";
-                    monkeyShop.style.display = "none";
-                }
-            })
-
-            leftButton.addEventListener("click", function(){
-                if(!isHidden){
-                    skinShop.style.display = "none";
-                    leftButton.style.top = "50%";
-                    leftButton.style.zIndex = "0";
-                    leftButton.innerHTML = "<button>S<br>K<br>I<br>N<br>S</button>";
-                }
-                else{
-                    skinShop.style.display = "block";
-                    leftButton.style.top = "0%";
-                    leftButton.style.zIndex = "2";
-                    leftButton.innerHTML = "<button>&lt;</button>";
-                }
-                isHidden = !isHidden;
-            })
-
-            rightButton.addEventListener("click", function(){
-                if(!isHidden){
-                    monkeyShop.style.display = "none";
-                    rightButton.style.top = "50%";
-                    rightButton.style.zIndex = "0";
-                    rightButton.innerHTML = "<button>M<br>O<br>N<br>K<br>E<br>Y<br>S</button>";
-                }
-                else{
-                    monkeyShop.style.display = "block";
-                    rightButton.style.top = "0%";
-                    rightButton.style.zIndex = "2";
-                    rightButton.innerHTML = "<button>&gt;</button>";
-                }
-                isHidden = !isHidden;
-            })
     })
     
-        setInterval(() => {
-            counter.count = counter.count + counter.popsPerSecond;
-        }, 1000);
+    setInterval(() => {
+        counter.count = counter.count + counter.popsPerSecond;
+    }, 1000);
 </script>
 
 <template>
     <main>
-        <article class="shop-area skins">
+        <article :class="{ active: skinShopActive }" class="shop-area skins">
             <Skins></Skins>
         </article>
         <Clicker></Clicker>
-        <article class="shop-area monkeys">
+        <article :class="{ active: monkeyShopActive }" class="shop-area monkeys">
             <Monkeys></Monkeys>
         </article>
+        <section v-if="!skinShopActive" id="open-skins">
+            <button @click="skinShopActive = true">S<br>K<br>I<br>N<br>S</button>
+        </section>
+        <section v-if="!monkeyShopActive" id="open-monkeys">
+            <button @click="monkeyShopActive = true">M<br>O<br>N<br>K<br>E<br>Y<br>S</button>
+        </section>
+        <section v-if="skinShopActive" id="close-skins">
+            <button @click="skinShopActive = false">&lt;</button>
+        </section>
+        <section v-if="monkeyShopActive" id="close-monkeys">
+            <button @click="monkeyShopActive = false">&gt;</button>
+        </section>
     </main>
 
     
 </template>
 
 <style scoped lang="scss">
+@import "./mixins.scss";
 
+    #open-skins, #open-monkeys, #close-skins, #close-monkeys{
+        display: none;
+        position: absolute;
+
+        button{
+            @include button;
+        }
+
+        @include responsive(smartphone-portrait){
+            display: block;
+        }
+
+        @include responsive(smartphone-landscape){
+            display: block;
+        }
+    }
+
+    #open-skins{
+        left: 0;
+    }
+
+    #open-monkeys{
+        right: 0;
+    }
+
+    #close-skins{
+        left: 0;
+        top: 0;
+        z-index: 1;
+    }
+
+    #close-monkeys{
+        right: 0;
+        top: 0;
+        z-index: 1;
+    }
+
+    .active{
+        display: flex;
+    }
 </style>

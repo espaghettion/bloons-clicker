@@ -41,12 +41,6 @@
             <section id="boosts">
                 <button v-for="(boost, i) in boostStore.boosts" :key="i" v-show="boost.unlocked" :disabled="boost.onCooldown" class="boost" @click="boostStore.useBoost(boost)"><img :src="boost.image" alt=""></button>
             </section>
-            <section id="slide-button-left">
-                <button>S<br>K<br>I<br>N<br>S</button>
-            </section>
-            <section id="slide-button-right">
-                <button>M<br>O<br>N<br>K<br>E<br>Y<br>S</button>
-            </section>
     </article>
 </template>
 
