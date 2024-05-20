@@ -2,9 +2,11 @@
     import { ref } from 'vue'
     import { useMonkeyStore } from '../stores/monkeys'
     import { useCounterStore } from '../stores/counter'
+    import { useBoostStore } from '../stores/boosts';
 
     const monkeyStore = useMonkeyStore();
     const counter = useCounterStore();
+    const boostStore = useBoostStore();
 
     const compact = (number, digits = 2) => {
         const lookup = [
@@ -38,8 +40,10 @@
                 <p>LVL {{ monkey.level }}</p>
             </article>
             <article>
-                <button :disabled="monkey.cost > counter.count" @click="monkeyStore.upgrade(monkey)">Buy</button>
-                <p class="cost">{{ compact(monkey.cost) }} <img src="../assets/pop.png" alt=""></p>
+                <button v-if="!boostStore.boosts[3].active" :disabled="monkey.cost > counter.count" @click="monkeyStore.upgrade(monkey)">Buy</button>
+                <button v-if="boostStore.boosts[3].active" :disabled="monkey.cost > counter.count * 0.9" @click="monkeyStore.upgrade(monkey)">Buy</button>
+                <p v-if="!boostStore.boosts[3].active" class="cost">{{ compact(monkey.cost) }} <img src="../assets/pop.png" alt=""></p>
+                <p v-if="boostStore.boosts[3].active" class="cost">{{ compact(monkey.cost * 0.9) }} <img src="../assets/pop.png" alt=""></p>
             </article>
         </section>
     </section>

@@ -23,7 +23,7 @@ export const useSkinStore = defineStore('skins', () => {
         {name: 'Zebra Bloon', image: zebraBloon, cost: 500000000000000, owned: false, using: false},
         {name: 'Rainbow Bloon', image: rainbowBloon, cost: 30000000000000000, owned: false, using: false},
         {name: 'Ceramic Bloon', image: ceramicBloon, cost: 2000000000000000000, owned: false, using: false}]);
-    const currentSkin = ref("src/assets/red-bloon.png");
+    const currentSkin = ref(redBloon);
 
     
     function buySkin(skin){
@@ -41,4 +41,4 @@ export const useSkinStore = defineStore('skins', () => {
     }
 
   return { skins, currentSkin, buySkin, useSkin }
-}, /*{persist: { storage: localStorage }}*/)
+}, {persist: { storage: localStorage }})

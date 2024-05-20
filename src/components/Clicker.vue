@@ -33,7 +33,8 @@
     <article id="clicker">
             <section>
                 <p class="text"> {{ compact(counter.count) }} Pops</p>
-                <p class="pps">Pops per second: {{ compact(counter.popsPerSecond) }}</p>
+                <p v-if="!boostStore.boosts[1].active" class="pps">Pops per second: {{ compact(counter.popsPerSecond) }}</p>
+                <p v-if="boostStore.boosts[1].active" class="pps">Pops per second: {{ compact(counter.bountyPopsPerSecond) }}</p>
             </section>
             <section>
                 <button id="bloon-button" @click="counter.click()"><img :src="skinStore.currentSkin" alt="balloon"></button>

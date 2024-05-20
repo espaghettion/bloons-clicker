@@ -4,17 +4,30 @@
     import Monkeys from './components/Monkeys.vue'
     import Skins from './components/Skins.vue'
     import { useCounterStore } from './stores/counter'
+    import { useBoostStore } from './stores/boosts';
+    import { useMonkeyStore } from './stores/monkeys';
+    import { useSkinStore } from './stores/skins';
 
     const counter = useCounterStore();
+    const boostStore = useBoostStore();
 
     const skinShopActive = ref(false);
     const monkeyShopActive = ref(false);
 
     onMounted(() => {
+        if(localStorage.getItem("lastActive") != undefined){
+            console.log((Math.abs(new Date() - new Date(localStorage.getItem("lastActive")))) / 1000)
+            counter.count += (Math.abs(new Date() - new Date(localStorage.getItem("lastActive")))) / 1000 * counter.popsPerSecond * 0.5
+        }
+        
+        setInterval(() => {
+            localStorage.setItem("lastActive", new Date())
+        }, 30000)
     })
     
     setInterval(() => {
-        counter.count = counter.count + counter.popsPerSecond;
+        if(boostStore.boosts[1].active == true) counter.count = counter.count + counter.bountyPopsPerSecond;
+        else counter.count = counter.count + counter.popsPerSecond;
     }, 1000);
 </script>
 

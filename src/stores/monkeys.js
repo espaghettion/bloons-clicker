@@ -42,7 +42,9 @@ export const useMonkeyStore = defineStore('monkeys', () => {
 
     function upgrade(monkey){
         monkey.level++;
-        counter.count = counter.count - monkey.cost;
+        let cost = monkey.cost;
+        if(boostStore.boosts[3].active) cost *= 0.9;
+        counter.count = counter.count - cost;
         monkey.cost = Math.round(monkey.cost * 1.3);
         switch(monkey.name){
             case 'Dart Monkey':
@@ -61,10 +63,10 @@ export const useMonkeyStore = defineStore('monkeys', () => {
                 if(monkey.level >= 20) boostStore.boosts[3].unlocked = true;
                 counter.popsPerSecond = counter.popsPerSecond + monkey.upgrade;
                 break;
-            case 'Super Monkey':
+            /*case 'Super Monkey':
                 if(monkey.level >= 10) boostStore.boosts[4].unlocked = true;
                 counter.popsPerSecond = counter.popsPerSecond + monkey.upgrade;
-                break;
+                break;*/
             default:
                 counter.popsPerSecond = counter.popsPerSecond + monkey.upgrade;
                 break;
@@ -72,4 +74,4 @@ export const useMonkeyStore = defineStore('monkeys', () => {
     }
 
   return { monkeys, upgrade }
-}, /*{persist: { storage: localStorage }}*/)
+}, {persist: { storage: localStorage }})
