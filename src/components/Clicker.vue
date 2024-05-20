@@ -50,19 +50,11 @@
 
     #clicker{
         @include flex-column;
-        width: 40%;
-        height: 100%;
+        width: 100%;
+        height: 90%;
         gap: 15%;
         background-image: url("../assets/background.png");
         background-size: cover;
-
-        @include responsive(smartphone-portrait){
-            width: 100%;
-        }
-
-        @include responsive(smartphone-landscape){
-            width: 100%;
-        }
     }
 
     #bloon-button{

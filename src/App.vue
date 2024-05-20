@@ -1,12 +1,13 @@
 <script setup>
+    import { RouterLink } from 'vue-router';
     import { ref, onMounted } from 'vue';
+
     import Clicker from './components/Clicker.vue'
     import Monkeys from './components/Monkeys.vue'
     import Skins from './components/Skins.vue'
+    import Header from './components/Header.vue'
     import { useCounterStore } from './stores/counter'
     import { useBoostStore } from './stores/boosts';
-    import { useMonkeyStore } from './stores/monkeys';
-    import { useSkinStore } from './stores/skins';
 
     const counter = useCounterStore();
     const boostStore = useBoostStore();
@@ -36,10 +37,15 @@
         <article :class="{ active: skinShopActive }" class="shop-area skins">
             <Skins></Skins>
         </article>
-        <Clicker></Clicker>
+
+        <article class="clicker">
+            <RouterView  />
+        </article>
+
         <article :class="{ active: monkeyShopActive }" class="shop-area monkeys">
             <Monkeys></Monkeys>
         </article>
+
         <section v-if="!skinShopActive" id="open-skins">
             <button @click="skinShopActive = true">S<br>K<br>I<br>N<br>S</button>
         </section>
@@ -53,12 +59,10 @@
             <button @click="monkeyShopActive = false">&gt;</button>
         </section>
     </main>
-
-    
 </template>
 
-<style scoped lang="scss">
-@import "./mixins.scss";
+<style lang="scss" scoped>
+@import './mixins.scss';
 
     #open-skins, #open-monkeys, #close-skins, #close-monkeys{
         display: none;
@@ -99,5 +103,18 @@
 
     .active{
         display: flex;
+    }
+
+    .clicker{
+        width: 40%;
+        height: 100%;
+
+        @include responsive(smartphone-portrait){
+            width: 100%;
+        }
+
+        @include responsive(smartphone-landscape){
+            width: 100%;
+        }
     }
 </style>
