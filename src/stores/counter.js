@@ -8,7 +8,7 @@ export const useCounterStore = defineStore('counter', () => {
   const popsPerSecond = ref(0);
 
   const supermonkeyFanclubClick = computed(() => clickingPower.value * 2);
-  const bountyPopsPerSecond = computed(() => popsPerSecond.value * 7);
+  const overclockPopsPerSecond = computed(() => popsPerSecond.value * 7);
 
   const boostStore = useBoostStore();
 
@@ -17,5 +17,5 @@ export const useCounterStore = defineStore('counter', () => {
     else count.value = count.value + clickingPower.value;
   }
 
-  return { count, clickingPower, popsPerSecond, supermonkeyFanclubClick, bountyPopsPerSecond, click }
+  return { count, clickingPower, popsPerSecond, supermonkeyFanclubClick, overclockPopsPerSecond, click }
 }, {persist: { storage: localStorage }})

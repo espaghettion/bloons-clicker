@@ -34,13 +34,17 @@
             <section>
                 <p class="text"> {{ compact(counter.count) }} Pops</p>
                 <p v-if="!boostStore.boosts[1].active" class="pps">Pops per second: {{ compact(counter.popsPerSecond) }}</p>
-                <p v-if="boostStore.boosts[1].active" class="pps">Pops per second: {{ compact(counter.bountyPopsPerSecond) }}</p>
+                <p v-if="boostStore.boosts[1].active" class="pps">Pops per second: {{ compact(counter.overclockPopsPerSecond) }}</p>
             </section>
             <section>
                 <button id="bloon-button" @click="counter.click()"><img :src="skinStore.currentSkin" alt="balloon"></button>
             </section>
             <section id="boosts">
-                <button v-for="(boost, i) in boostStore.boosts" :key="i" v-show="boost.unlocked" :disabled="boost.onCooldown" class="boost" @click="boostStore.useBoost(boost)"><img :src="boost.image" alt=""></button>
+                <button v-for="(boost, i) in boostStore.boosts" :key="i" v-show="boost.unlocked" :disabled="boost.onCooldown || boost.active" :class="{ cooldown: boost.onCooldown }" class="boost" @click="boostStore.useBoost(boost)">
+                    <img :src="boost.image" alt="">
+                    <p v-if="boost.active">{{ boost.remainingTime / 1000 }}</p>
+                    <p v-if="boost.onCooldown">{{ boost.remainingCooldown / 1000 }}</p>
+                </button>
             </section>
     </article>
 </template>
@@ -86,11 +90,13 @@
         }
 
         &:disabled{
+            cursor: not-allowed;
+        }
+
+        &.cooldown{
             img{
                 filter: grayscale(1);
             }
-
-            cursor: not-allowed;
         }
 
         img{
@@ -99,6 +105,12 @@
             @include responsive(tablet){
                 width: 45px;
             }
+        }
+
+        p{
+            font-family: 'Luckiest Guy', sans-serif;
+            color: rgb(162, 100, 0);
+            font-size: 1.2em;
         }
     }
 

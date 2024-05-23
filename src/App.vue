@@ -16,18 +16,25 @@
     const monkeyShopActive = ref(false);
 
     onMounted(() => {
-        if(localStorage.getItem("lastActive") != undefined){
-            console.log((Math.abs(new Date() - new Date(localStorage.getItem("lastActive")))) / 1000)
-            counter.count += (Math.abs(new Date() - new Date(localStorage.getItem("lastActive")))) / 1000 * counter.popsPerSecond * 0.5
+        for(let i = 0; i < boostStore.boosts.length; i++){
+            if(boostStore.boosts[i].active || boostStore.boosts[i].onCooldown){
+                boostStore.useBoost(boostStore.boosts[i]);
+            }
         }
-        
-        setInterval(() => {
-            localStorage.setItem("lastActive", new Date())
-        }, 30000)
     })
+
+    if(localStorage.getItem("lastActive") != undefined){
+        console.log((Math.abs(new Date() - new Date(localStorage.getItem("lastActive")))) / 1000)
+        counter.count += Math.round((Math.abs(new Date() - new Date(localStorage.getItem("lastActive")))) / 1000 * counter.popsPerSecond * 0.5)
+    }
+            
+    setInterval(() => {
+        localStorage.setItem("lastActive", new Date())
+    }, 30000)
+
     
     setInterval(() => {
-        if(boostStore.boosts[1].active == true) counter.count = counter.count + counter.bountyPopsPerSecond;
+        if(boostStore.boosts[1].active == true) counter.count = counter.count + counter.overclockPopsPerSecond;
         else counter.count = counter.count + counter.popsPerSecond;
     }, 1000);
 </script>

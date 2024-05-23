@@ -30,12 +30,12 @@ export const useMonkeyStore = defineStore('monkeys', () => {
         {name: 'Glue Gunner', level: 0, image: glueGunner, cost: 10000, upgrade: 40},
         {name: 'Bomb Shooter', level: 0, image: bombShooter, cost: 75000, upgrade: 200},
         {name: 'Ice Monkey', level: 0, image: iceMonkey, cost: 290000, upgrade: 500},
-        {name: 'Engineer Monkey', level: 0, image: engineerMonkey, cost: 1000000, upgrade: 1500},
+        {name: 'Engineer Monkey', level: 0, image: engineerMonkey, cost: 1000000, upgrade: 500},
         {name: 'Monkey Buccaneer', level: 0, image: monkeyBuccaneer, cost: 6000000, upgrade: 6000},
         {name: 'Monkey Sub', level: 0, image: monkeySub, cost: 30000000, upgrade: 25000},
         {name: 'Monkey Ace', level: 0, image: monkeyAce, cost: 150000000, upgrade: 100000},
-        {name: 'Sniper Monkey', level: 0, image: sniperMonkey, cost: 800000000, upgrade: 500000},
-        {name: 'Druid', level: 0, image: druid, cost: 5000000000, upgrade: 3000000},
+        {name: 'Sniper Monkey', level: 0, image: sniperMonkey, cost: 800000000, upgrade: 100000},
+        {name: 'Druid', level: 0, image: druid, cost: 5000000000, upgrade: 500000},
         {name: 'Ninja Monkey', level: 0, image: ninjaMonkey, cost: 31000000000, upgrade: 15000000},
         {name: 'Wizard Monkey', level: 0, image: wizardMonkey, cost: 180000000000, upgrade: 80000000},
         {name: 'Super Monkey', level: 0, image: superMonkey, cost: 1000000000000, upgrade: 400000000},]);
@@ -53,20 +53,16 @@ export const useMonkeyStore = defineStore('monkeys', () => {
                 break;
             case 'Engineer Monkey':
                 if(monkey.level >= 20) boostStore.boosts[1].unlocked = true;
-                counter.popsPerSecond = counter.popsPerSecond + monkey.upgrade;
+                counter.clickingPower = counter.clickingPower + monkey.upgrade;
                 break;
             case 'Sniper Monkey':
                 if(monkey.level >= 20) boostStore.boosts[2].unlocked = true;
-                counter.popsPerSecond = counter.popsPerSecond + monkey.upgrade;
+                counter.popsPerSecond = counter.clickingPower + monkey.upgrade;
                 break;
             case 'Druid':
                 if(monkey.level >= 20) boostStore.boosts[3].unlocked = true;
-                counter.popsPerSecond = counter.popsPerSecond + monkey.upgrade;
+                counter.popsPerSecond = counter.clickingPower + monkey.upgrade;
                 break;
-            /*case 'Super Monkey':
-                if(monkey.level >= 10) boostStore.boosts[4].unlocked = true;
-                counter.popsPerSecond = counter.popsPerSecond + monkey.upgrade;
-                break;*/
             default:
                 counter.popsPerSecond = counter.popsPerSecond + monkey.upgrade;
                 break;
