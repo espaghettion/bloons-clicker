@@ -28,6 +28,7 @@ export const useSkinStore = defineStore('skins', () => {
     
     function buySkin(skin){
         skin.owned = true;
+        counter.count = counter.count - skin.cost;
     }
 
     function useSkin(skin){
